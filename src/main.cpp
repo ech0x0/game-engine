@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
         bufferLayout.attributes.push_back(graphics::VertexAttribute(2, GL_FLOAT, GL_FALSE, 0));
         bufferLayout.stride = sizeof(vec2<float>);
 
-        graphics::Drawable dr((void*)vertices, 3 * sizeof(vec2<float>), indices, 3, GL_STATIC_DRAW, bufferLayout);
+        graphics::Drawable dr("basic", (void*)vertices, 3 * sizeof(vec2<float>), indices, 3, GL_STATIC_DRAW, bufferLayout);
         while (!window.shouldClose()) {
             window.draw(&dr);
             window.render();

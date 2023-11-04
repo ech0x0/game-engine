@@ -1,7 +1,7 @@
 #include "shader.hpp"
 
 graphics::Shader::Shader(const std::string& name)
-    : m_name(name), m_id(0) {
+    : m_name("../res/shaders/" + name), m_id(0) {
     glCall(m_id = glCreateProgram());
 
     shaderSource source = parseShader();

@@ -1,7 +1,7 @@
 #include "drawable.hpp"
 
-graphics::Drawable::Drawable(const void* vertexData, const size_t vertexDataSize, const unsigned int* indices, const size_t indicesCount, unsigned int usage, const BufferLayout& bufferLayout) {
-    shader = new Shader("../res/shaders/basic");
+graphics::Drawable::Drawable(const std::string& shaderName, const void* vertexData, const size_t vertexDataSize, const unsigned int* indices, const size_t indicesCount, unsigned int usage, const BufferLayout& bufferLayout) {
+    shader = new Shader(shaderName);
     va = new VertexArray();
     vb = new VertexBuffer(vertexData, vertexDataSize, usage);
     ib = new IndexBuffer(indices, indicesCount, usage);
