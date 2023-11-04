@@ -2,11 +2,12 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 
+#include <deque>
+
 #include "graphics_base.hpp"
-#include "../data_types/vec2.hpp"
 #include "drawable.hpp"
 
-#include <deque>
+#include "../data_types/vec2.hpp"
 #include "../data_types/vec4.hpp"
 
 namespace graphics {
@@ -25,6 +26,6 @@ namespace graphics {
 
         void draw(Drawable* drawable);
     };
-}
+} // namespace graphics
 
-#endif 
+#endif

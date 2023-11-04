@@ -4,7 +4,8 @@
 #include <cstdio>
 
 void glClearErrors() {
-    while (glGetError() != GL_NO_ERROR);
+    while (glGetError() != GL_NO_ERROR)
+        ;
 }
 
 bool glGetLatestErrors(const char* function, const char* file, const int line) {
@@ -39,7 +40,7 @@ bool glGetLatestErrors(const char* function, const char* file, const int line) {
             errStr = "Unknown error code";
             break;
         }
-        printf("OpenGL error %d: %s caused by %s in %s at line %d\n", err, errStr, function, file, line);
+        fprintf(stderr, "OpenGL error %d: %s caused by %s in %s at line %d\n", err, errStr, function, file, line);
         err = glGetError();
 
         ret = false;

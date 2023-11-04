@@ -9,9 +9,7 @@ graphics::Window::Window(const int width, const int height, const char* name, ve
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_MAXIMIZED, GL_TRUE);
 
     // Create window
@@ -22,8 +20,6 @@ graphics::Window::Window(const int width, const int height, const char* name, ve
         destroyGl();
         throw std::runtime_error("Failed to initialize GLFW window");
     }
-
-    GLFWwindow* previousWindow = glfwGetCurrentContext();
 
     // Make window context the current one
     glfwMakeContextCurrent(window);
@@ -53,8 +49,6 @@ graphics::Window::Window(const int width, const int height, const char* name, ve
         destroyGl();
         throw std::runtime_error("Failed to initialize GLEW");
     }
-
-    glfwMakeContextCurrent(previousWindow);
 }
 
 graphics::Window::~Window() {
@@ -62,21 +56,16 @@ graphics::Window::~Window() {
 }
 
 void graphics::Window::render() {
-    // Make window context the current one
-    GLFWwindow* previousWindow = glfwGetCurrentContext();
-    glfwMakeContextCurrent(window);
-
     // Poll window events, keyboard and mouse inputs
     glfwPollEvents();
+
+    glClearColor(bgColor.x, bgColor.y, bgColor.z, bgColor.w);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     while (!drawables.empty()) {
         drawables.front()->draw();
         drawables.pop_front();
     }
-
-
-    glClearColor(bgColor.x, bgColor.y, bgColor.z, bgColor.w);
-    glClear(GL_COLOR_BUFFER_BIT);
 
     int screenWidth, screenHeight;
     glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
@@ -84,9 +73,6 @@ void graphics::Window::render() {
 
     // Swap buffers
     glfwSwapBuffers(window);
-
-    // Change current context back to the window that had it before
-    glfwMakeContextCurrent(previousWindow);
 }
 
 bool graphics::Window::shouldClose() {

@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.24)
 
 if (WIN32)
-    set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake")
+set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake")
 else()
-    set(CMAKE_TOOLCHAIN_FILE "/opt/vcpkg/scripts/buildsystems/vcpkg.cmake")
+set(CMAKE_TOOLCHAIN_FILE "/opt/vcpkg/scripts/buildsystems/vcpkg.cmake")
 endif()
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
@@ -17,10 +17,10 @@ file(GLOB_RECURSE SRC_FILES src/*.cpp)
 add_executable(game-engine ${SRC_FILES})
 
 if(MSVC)
-  target_compile_options(game-engine PRIVATE /W4)
-  target_link_options(game-engine PRIVATE /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup)
+target_compile_options(game-engine PRIVATE /W4)
+target_link_options(game-engine PRIVATE /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup)
 else()
-  target_compile_options(game-engine PRIVATE -Wall -Wextra -Wpedantic)
+target_compile_options(game-engine PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 find_package(glfw3 CONFIG REQUIRED)
