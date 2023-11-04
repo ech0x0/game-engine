@@ -29,6 +29,17 @@ void graphics::Shader::unbind() const {
     glCall(glUseProgram(0));
 }
 
+void graphics::Shader::setUniform1f(const std::string& name, float value) {
+    glCall(glUniform1f(getUniformLocation(name), value));
+}
+
+void graphics::Shader::setUniform2f(const std::string& name, vec2<float> value) {
+    glCall(glUniform2f(getUniformLocation(name), value.x, value.y));
+}
+
+void graphics::Shader::setUniform3f(const std::string& name, vec3<float> value) {
+    glCall(glUniform3f(getUniformLocation(name), value.x, value.y, value.z));
+}
 void graphics::Shader::setUniform4f(const std::string& name, vec4<float> value) {
     glCall(glUniform4f(getUniformLocation(name), value.x, value.y, value.z, value.w));
 }

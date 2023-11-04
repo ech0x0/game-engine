@@ -12,9 +12,9 @@ int main(int argc, char* argv[]) {
         Timer timer;
 
         vec2<float> vertices[] = {
-            { -0.5f, -0.5f },
-            { 0.5f, -0.5f },
-            { 0.0f, 0.5f }
+            { -960.f, -540.f },
+            { 960.f, -540.f },
+            { 0.0f, 540.f }
         };
         unsigned int indices[] = {
             0, 1, 2

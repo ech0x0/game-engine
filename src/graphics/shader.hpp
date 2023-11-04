@@ -5,6 +5,9 @@
 #include <string>
 #include <unordered_map>
 #include "graphics_base.hpp"
+
+#include "../data_types/vec2.hpp"
+#include "../data_types/vec3.hpp"
 #include "../data_types/vec4.hpp"
 
 namespace graphics {
@@ -21,6 +24,9 @@ namespace graphics {
         void bind() const;
         void unbind() const;
 
+        void setUniform1f(const std::string& name, float value);
+        void setUniform2f(const std::string& name, vec2<float> value);
+        void setUniform3f(const std::string& name, vec3<float> value);
         void setUniform4f(const std::string& name, vec4<float> value);
     private:
         struct shaderSource {

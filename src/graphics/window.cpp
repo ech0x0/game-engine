@@ -2,6 +2,10 @@
 
 #include <stdexcept>
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+    glViewport(0, 0, width, height);
+}
+
 graphics::Window::Window(const int width, const int height, const char* name, vec4<float> backgroundColor) {
     bgColor = backgroundColor;
 
@@ -23,6 +27,9 @@ graphics::Window::Window(const int width, const int height, const char* name, ve
 
     // Make window context the current one
     glfwMakeContextCurrent(window);
+
+    // Set resize callback to our function
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // Make sure vsync is disabled because we will be limiting fps ourselves
     glfwSwapInterval(0);
@@ -66,10 +73,6 @@ void graphics::Window::render() {
         drawables.front()->draw();
         drawables.pop_front();
     }
-
-    int screenWidth, screenHeight;
-    glfwGetFramebufferSize(window, &screenWidth, &screenHeight);
-    glViewport(0, 0, screenWidth, screenHeight);
 
     // Swap buffers
     glfwSwapBuffers(window);
