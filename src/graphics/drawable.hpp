@@ -17,10 +17,11 @@ namespace graphics {
         VertexBuffer* vb;
         IndexBuffer* ib;
     public:
-        Drawable(const std::string& shaderName, const void* vertexData, const size_t vertexDataSize, const unsigned int* indices, const size_t indicesCount, unsigned int usage, const BufferLayout& bufferLayout);
+        Drawable(const char* shaderName, const bool isUnique, const void* vertexData, const size_t vertexDataSize, const unsigned int* indices, const size_t indicesCount, unsigned int usage, const BufferLayout& bufferLayout);
         ~Drawable();
 
         virtual void draw();
+        virtual void setColor(const vec4<float>& color);
     };
 } // namespace graphics
 

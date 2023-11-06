@@ -18,6 +18,8 @@ namespace graphics {
 
         void bind() const;
         void unbind() const;
+
+        unsigned int getCount() const;
     };
 } // namespace graphics
 

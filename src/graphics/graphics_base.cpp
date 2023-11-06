@@ -48,6 +48,10 @@ bool glGetLatestErrors(const char* function, const char* file, const int line) {
     return ret;
 }
 
+void printErrorFn(const char* error, const char* file, const int line) {
+    fprintf(stderr, "Runtime error: %s caused by line %d in file %s\n", error, line, file);
+}
+
 void graphics::initGl() {
     // Initialize GLFW
     if (!glfwInit()) {

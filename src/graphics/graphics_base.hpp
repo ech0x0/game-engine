@@ -4,17 +4,19 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "debugbreak.h"
+
+#define GAME_VERSION 1
 
 void glClearErrors();
 bool glGetLatestErrors(const char* function, const char* file, const int line);
 
-#define ASSERT(x) \
-    if (!(x)) {}
-#define glCall(x)    \
-    glClearErrors(); \
-    x;               \
-    ASSERT(glGetLatestErrors(#x, __FILE__, __LINE__));
+void printErrorFn(const char* error, const char* file, const int line);
+
+#define printError(x) printErrorFn(x, __FILE__, __LINE__)
+
+#define glCall(x) \
+    x;            \
+    glGetLatestErrors(#x, __FILE__, __LINE__);
 
 namespace graphics {
     void initGl();

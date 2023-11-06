@@ -18,3 +18,7 @@ void graphics::IndexBuffer::bind() const {
 void graphics::IndexBuffer::unbind() const {
     glCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 }
+
+unsigned int graphics::IndexBuffer::getCount() const {
+    return m_count;
+}
