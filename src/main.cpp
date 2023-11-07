@@ -1,6 +1,5 @@
 #include "graphics/window.hpp"
 #include "game_engine/timer.hpp"
-
 #include <iostream>
 
 int main(int argc, char* argv[]) {

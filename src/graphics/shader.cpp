@@ -50,13 +50,16 @@ static unsigned int compileShader(const GLenum type, const char* source) {
     return id;
 }
 
-static unsigned int createNewShaderFromSource(const char* shaderName) {
+static unsigned int createNewShaderFromSource(const char* shaderName, bool* compileSucceded) {
     glCall(unsigned int id = glCreateProgram());
 
     char* vertexShaderSource = fileToString(("../assets/shaders/" + std::string(shaderName) + ".vs.glsl").c_str());
     char* fragmentShaderSource = fileToString(("../assets/shaders/" + std::string(shaderName) + ".fs.glsl").c_str());
     unsigned int vs = compileShader(GL_VERTEX_SHADER, vertexShaderSource);
     unsigned int fs = compileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
+
+    if (vs != 0 && fs != 0) *compileSucceded = true;
+    else *compileSucceded = false;
 
     free(vertexShaderSource);
     free(fragmentShaderSource);
@@ -105,7 +108,24 @@ static void cacheShader(unsigned int id, const char* name) {
     free(shaderBinary);
 }
 
+#if defined(_WIN32) || defined(_WIN64)
+
+#include <windows.h>
+void createDir(const char* dirName) {
+    CreateDirectory(dirName, NULL);
+}
+
+#else
+
+#include <sys/stat.h>
+void createDir(const char* dirName) {
+    mkdir(dirName, S_IRWXU | S_IRWXG | S_IRWXO);
+}
+
+#endif
+
 static FILE* openShaderCache(const char* name) {
+    createDir("shader_cache");
     FILE* shaderFile = fopen(("shader_cache/" + std::string(name)).c_str(), "rb");
 
     // check if shader cache exists
@@ -146,8 +166,9 @@ static unsigned int createUniqueShader(const char* name) {
 
         free(shaderBinary);
     } else {
-        id = createNewShaderFromSource(name);
-        cacheShader(id, name);
+        bool compileSucceded;
+        id = createNewShaderFromSource(name, &compileSucceded);
+        if (compileSucceded) cacheShader(id, name);
     }
 
     return id;
