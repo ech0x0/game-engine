@@ -27,6 +27,11 @@ namespace graphics {
     private:
         int getUniformLocation(const char* name);
     };
+
+    void setUniform1fToAllShaders(const char* name, float value);
+    void setUniform2fToAllShaders(const char* name, vec2<float> value);
+    void setUniform3fToAllShaders(const char* name, vec3<float> value);
+    void setUniform4fToAllShaders(const char* name, vec4<float> value);
 } // namespace graphics
 
 #endif

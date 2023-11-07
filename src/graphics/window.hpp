@@ -2,19 +2,19 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 
-#include <deque>
-
 #include "graphics_base.hpp"
 #include "drawable.hpp"
 
 #include "../data_types/vec2.hpp"
 #include "../data_types/vec4.hpp"
 
+#include <deque>
+
 namespace graphics {
     class Window {
     private:
-        GLFWwindow* window;
-        vec4<float> bgColor;
+        GLFWwindow* m_window;
+        vec4<float> m_bgColor;
 
         std::deque<Drawable*> drawables;
     public:
