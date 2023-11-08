@@ -3,13 +3,21 @@
 #define CAMERA_HPP
 
 #include "graphics_base.hpp"
+#include "shader.hpp"
+#include "drawable.hpp"
 #include "../data_types/vec2.hpp"
+
+#include <list>
+#include <deque>
 
 namespace graphics {
     class Camera {
     private:
         vec2<float> m_pos;
         float m_scale;
+
+        std::list<Shader*> m_shaders;
+        std::deque<Drawable*> m_drawables;
     public:
         Camera();
         Camera(const vec2<float> pos);
@@ -22,7 +30,13 @@ namespace graphics {
         float getScale() const;
         void setScale(const float scale);
 
-        void updateUniforms() const;
+        void addShader(Shader* shader);
+
+        void draw(Drawable* drawable);
+        void drawAll();
+    private:
+        void setUniform1fToAllShaders(const char* name, const float value);
+        void setUniform2fToAllShaders(const char* name, const vec2<float> value);
     };
 } // namespace graphics
 

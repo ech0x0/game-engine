@@ -2,7 +2,6 @@
 
 #include <string>
 #include <unordered_map>
-#include <set>
 
 static char* fileToString(const char* filePath) {
     FILE* filePtr = fopen(filePath, "rb");
@@ -151,7 +150,6 @@ static FILE* openShaderCache(const char* name) {
 // unsigned int -> shader use counter
 std::unordered_map<std::string, unsigned int> sharedShadersIds;
 std::unordered_map<unsigned int, unsigned int> sharedShadersCounters;
-std::set<unsigned int> shaders;
 
 static unsigned int createUniqueShader(const char* name) {
     unsigned int id;
@@ -179,7 +177,6 @@ static unsigned int createUniqueShader(const char* name) {
         if (compileSucceded) cacheShader(id, name);
     }
 
-    shaders.insert(id);
     return id;
 }
 
@@ -206,7 +203,6 @@ static unsigned int createShader(const char* name, const bool isUnique) {
 }
 
 static void destroyUniqueShader(unsigned int id) {
-    shaders.erase(id);
     glCall(glDeleteProgram(id));
 }
 
@@ -296,36 +292,4 @@ void graphics::Shader::setUniform4f(const char* name, vec4<float> value) {
 
 int graphics::Shader::getUniformLocation(const char* name) {
     return getShaderUniformLocation(m_id, name);
-}
-
-void graphics::setUniform1fToAllShaders(const char* name, float value) {
-    for (const unsigned int id : shaders) {
-        glCall(glUseProgram(id));
-        setShaderUniform1f(id, name, value);
-    }
-    glCall(glUseProgram(0));
-}
-
-void graphics::setUniform2fToAllShaders(const char* name, vec2<float> value) {
-    for (const unsigned int id : shaders) {
-        glCall(glUseProgram(id));
-        setShaderUniform2f(id, name, value);
-    }
-    glCall(glUseProgram(0));
-}
-
-void graphics::setUniform3fToAllShaders(const char* name, vec3<float> value) {
-    for (const unsigned int id : shaders) {
-        glCall(glUseProgram(id));
-        setShaderUniform3f(id, name, value);
-    }
-    glCall(glUseProgram(0));
-}
-
-void graphics::setUniform4fToAllShaders(const char* name, vec4<float> value) {
-    for (const unsigned int id : shaders) {
-        glCall(glUseProgram(id));
-        setShaderUniform4f(id, name, value);
-    }
-    glCall(glUseProgram(0));
 }

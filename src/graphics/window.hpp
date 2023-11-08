@@ -4,6 +4,7 @@
 
 #include "graphics_base.hpp"
 #include "drawable.hpp"
+#include "camera.hpp"
 
 #include "../data_types/vec2.hpp"
 #include "../data_types/vec4.hpp"
@@ -16,7 +17,7 @@ namespace graphics {
         GLFWwindow* m_window;
         vec4<float> m_bgColor;
 
-        std::deque<Drawable*> drawables;
+        std::deque<Camera*> m_cameras;
     public:
         Window(const int width, const int height, const char* name, vec4<float> backgroundColor);
         ~Window();
@@ -24,7 +25,7 @@ namespace graphics {
         void render();
         bool shouldClose();
 
-        void draw(Drawable* drawable);
+        void drawCamera(Camera* camera);
     };
 } // namespace graphics
 

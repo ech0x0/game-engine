@@ -12,16 +12,18 @@
 namespace graphics {
     class Drawable {
     private:
-        Shader* shader;
-        VertexArray* va;
-        VertexBuffer* vb;
-        IndexBuffer* ib;
+        Shader* m_shader;
+        VertexArray* m_va;
+        VertexBuffer* m_vb;
+        IndexBuffer* m_ib;
     public:
         Drawable(const char* shaderName, const bool isUnique, const void* vertexData, const size_t vertexDataSize, const unsigned int* indices, const size_t indicesCount, unsigned int usage, const BufferLayout& bufferLayout);
         ~Drawable();
 
         virtual void draw();
         virtual void setColor(const vec4<float>& color);
+
+        Shader* getShader() const;
     };
 } // namespace graphics
 

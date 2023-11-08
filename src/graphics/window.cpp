@@ -69,9 +69,9 @@ void graphics::Window::render() {
     glClearColor(m_bgColor.x, m_bgColor.y, m_bgColor.z, m_bgColor.w);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    while (!drawables.empty()) {
-        drawables.front()->draw();
-        drawables.pop_front();
+    while (!m_cameras.empty()) {
+        m_cameras.front()->drawAll();
+        m_cameras.pop_front();
     }
 
     // Swap buffers
@@ -82,6 +82,6 @@ bool graphics::Window::shouldClose() {
     return glfwWindowShouldClose(m_window);
 }
 
-void graphics::Window::draw(Drawable* drawable) {
-    drawables.push_back(drawable);
+void graphics::Window::drawCamera(Camera* camera) {
+    m_cameras.push_back(camera);
 }

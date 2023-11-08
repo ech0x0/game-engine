@@ -35,16 +35,19 @@ int main(int argc, char* argv[]) {
         graphics::Drawable dr2("basic", true, (void*)vertices2, 4 * sizeof(vec2<float>), indices, 6, GL_STATIC_DRAW, bufferLayout);
         dr1.setColor({ 0.f, 0.5f, 0.5f, 1.f });
         dr2.setColor({ 1.f, 1.f, 0.5f, 1.f });
-        camera.updateUniforms();
+
+        camera.addShader(dr1.getShader());
+        camera.addShader(dr2.getShader());
+
         auto timeElapsed = timer.tick(60);
         while (!window.shouldClose()) {
-            window.draw(&dr1);
-            window.draw(&dr2);
+            camera.draw(&dr1);
+            camera.draw(&dr2);
+
+            window.drawCamera(&camera);
+
             window.render();
-            camera.move({ 1.f, 1.f });
-            camera.setScale(camera.getScale() * 0.99);
             timeElapsed = timer.tick(60);
-            printf("%f\n", timeElapsed.count());
         }
     }
 
