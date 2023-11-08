@@ -16,16 +16,12 @@ namespace graphics {
     private:
         GLFWwindow* m_window;
         vec4<float> m_bgColor;
-
-        std::deque<Camera*> m_cameras;
     public:
         Window(const int width, const int height, const char* name, vec4<float> backgroundColor);
         ~Window();
 
-        void render();
+        void render(Camera* camera);
         bool shouldClose();
-
-        void drawCamera(Camera* camera);
     };
 } // namespace graphics
 

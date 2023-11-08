@@ -62,17 +62,14 @@ graphics::Window::~Window() {
     if (m_window) glfwDestroyWindow(m_window);
 }
 
-void graphics::Window::render() {
+void graphics::Window::render(Camera* camera) {
     // Poll window events, keyboard and mouse inputs
     glfwPollEvents();
 
     glClearColor(m_bgColor.x, m_bgColor.y, m_bgColor.z, m_bgColor.w);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    while (!m_cameras.empty()) {
-        m_cameras.front()->drawAll();
-        m_cameras.pop_front();
-    }
+    camera->drawAll();
 
     // Swap buffers
     glfwSwapBuffers(m_window);
@@ -80,8 +77,4 @@ void graphics::Window::render() {
 
 bool graphics::Window::shouldClose() {
     return glfwWindowShouldClose(m_window);
-}
-
-void graphics::Window::drawCamera(Camera* camera) {
-    m_cameras.push_back(camera);
 }

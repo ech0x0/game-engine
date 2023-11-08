@@ -44,9 +44,7 @@ int main(int argc, char* argv[]) {
             camera.draw(&dr1);
             camera.draw(&dr2);
 
-            window.drawCamera(&camera);
-
-            window.render();
+            window.render(&camera);
             timeElapsed = timer.tick(60);
         }
     }
